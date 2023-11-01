@@ -11,12 +11,12 @@ import cloudinary from '../utils/cloudinary'
 import getBase64ImageUrl from '../utils/generateBlurPlaceholder'
 import type { ImageProps } from '../utils/types'
 import { useLastViewedPhoto } from '../utils/useLastViewedPhoto'
+import myImage from '/public/2.jpg';
 
 const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
   const router = useRouter()
   const { photoId } = router.query
   const [lastViewedPhoto, setLastViewedPhoto] = useLastViewedPhoto()
-
   const lastViewedPhotoRef = useRef<HTMLAnchorElement>(null)
 
   useEffect(() => {
@@ -57,7 +57,8 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
               </span>
               <span className="absolute left-0 right-0 bottom-0 h-[400px] bg-gradient-to-b from-black/0 via-black to-black"></span>
             </div>
-            <Logo />
+            {/* <Logo /> */}
+            <Image src={myImage} alt="My Image" />
             <h1 className="mt-8 mb-4 text-base font-bold uppercase tracking-widest">
               Rabu's Wedding 2023 Photos
             </h1>
@@ -134,9 +135,7 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
     </>
   )
 }
-
 export default Home
-
 export async function getStaticProps() {
   const results = await cloudinary.v2.search
     .expression(`folder:${process.env.CLOUDINARY_FOLDER}/*`)
